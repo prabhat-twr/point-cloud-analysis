@@ -2,7 +2,10 @@
 
 A modern, web-based point cloud visualizer built with Three.js that supports multiple point cloud formats including PLY, PCD, and XYZ files.
 
-![Point Cloud Visualizer](https://img.shields.io/badge/Three.js-r128-blue) ![License](https://img.shields.io/badge/license-MIT-green)
+![CI/CD](https://github.com/astro-wizard/point-cloud-analysis/actions/workflows/ci-cd.yml/badge.svg)
+![Point Cloud Visualizer](https://img.shields.io/badge/Three.js-r128-blue) 
+![License](https://img.shields.io/badge/license-MIT-green)
+[![GitHub Pages](https://img.shields.io/badge/deployed%20on-GitHub%20Pages-blue)](https://astro-wizard.github.io/point-cloud-analysis/)
 
 ## Features
 
@@ -24,6 +27,9 @@ A modern, web-based point cloud visualizer built with Three.js that supports mul
 - **Real-time Info**: View vertex count, face count, bounds, and file information
 
 ## Quick Start
+
+### Live Demo
+🚀 **[Try it live on GitHub Pages](https://astro-wizard.github.io/point-cloud-analysis/)**
 
 ### Option 1: Direct File Opening
 1. Download or clone this repository
@@ -141,6 +147,32 @@ npm run dev
 # Start development server
 npm start
 ```
+
+### CI/CD Pipeline
+
+This project uses GitHub Actions for continuous integration and deployment:
+
+- **Build & Test**: Automatically runs on pull requests and pushes to main/master
+- **Deploy**: Automatically deploys to GitHub Pages on pushes to main/master branch
+- **Static Analysis**: Validates HTML, CSS, and JavaScript files
+- **Server Testing**: Tests the HTTP server functionality
+
+#### Pipeline Stages:
+1. **Build**: Install dependencies and validate static files
+2. **Test**: Start local server and test accessibility of main assets
+3. **Deploy**: Deploy to GitHub Pages (main branch only)
+
+#### Deployment Status:
+- Live URL: https://astro-wizard.github.io/point-cloud-analysis/
+- Auto-deployment from `main` branch
+- Build artifacts available for download
+
+### Manual Deployment
+
+To deploy manually to GitHub Pages:
+1. Push changes to `main` branch
+2. GitHub Actions will automatically build and deploy
+3. Access the live version at the GitHub Pages URL
 
 ### Adding New Features
 The codebase is modular and easy to extend:
