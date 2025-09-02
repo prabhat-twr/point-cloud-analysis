@@ -1,0 +1,35 @@
+{
+  "name": "point-cloud-visualizer",
+  "version": "1.0.0",
+  "description": "A modern web-based point cloud visualizer with support for PLY, PCD, and XYZ formats",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8080 -c-1",
+    "dev": "npx http-server -p 8080 -c-1 -o",
+    "build": "echo 'No build step required - static files only'",
+    "serve": "npx http-server -p 8080 -c-1"
+  },
+  "keywords": [
+    "point-cloud",
+    "visualization",
+    "three.js",
+    "webgl",
+    "3d",
+    "ply",
+    "pcd",
+    "xyz"
+  ],
+  "author": "Point Cloud Visualizer",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/point-cloud-visualizer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/point-cloud-visualizer/issues"
+  },
+  "homepage": "https://github.com/your-username/point-cloud-visualizer#readme"
+}

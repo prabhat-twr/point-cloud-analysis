@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Point Cloud Visualizer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/PLYLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/PCDLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <h1>Point Cloud Visualizer</h1>
+            <div class="controls-panel">
+                <div class="file-upload">
+                    <input type="file" id="fileInput" accept=".ply,.pcd,.xyz,.txt,.stl" multiple>
+                    <label for="fileInput" class="upload-btn">Load 3D Model</label>
+                </div>
+                <div class="control-group">
+                    <label for="pointSize">Point Size:</label>
+                    <input type="range" id="pointSize" min="0.1" max="10" step="0.1" value="1">
+                    <span id="pointSizeValue">1.0</span>
+                </div>
+                <div class="control-group">
+                    <label for="colorMode">Color Mode:</label>
+                    <select id="colorMode">
+                        <option value="height">Height-based</option>
+                        <option value="distance">Distance-based</option>
+                        <option value="intensity">Intensity-based</option>
+                        <option value="uniform">Uniform</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="backgroundColor">Background:</label>
+                    <input type="color" id="backgroundColor" value="#000000">
+                </div>
+                <div class="control-group">
+                    <label for="viewMode">View Mode:</label>
+                    <select id="viewMode">
+                        <option value="points">Points</option>
+                        <option value="faces">Faces</option>
+                        <option value="wireframe">Wireframe</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <button id="resetCamera">Reset Camera</button>
+                    <button id="clearSelection">Clear Selection</button>
+                </div>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <div id="viewer" class="viewer"></div>
+            <div class="sidebar">
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="info">Info</button>
+                        <button class="tab-btn" data-tab="analysis">Analysis</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div id="info-tab" class="tab-panel active">
+                            <h3>3D Model Info</h3>
+                            <div id="pointCount">No model loaded</div>
+                            <div id="faceCount">Faces: N/A</div>
+                            <div id="bounds">Bounds: N/A</div>
+                            <div id="fileInfo">File: None</div>
+                            <div id="selectionInfo" class="selection-info">No selection</div>
+                        </div>
+                        
+                        <div id="analysis-tab" class="tab-panel">
+                            <h3>Analysis & Statistics</h3>
+                            
+                            <div class="analysis-grid">
+                                <div class="analysis-card">
+                                    <h4>Point Density</h4>
+                                    <div id="densityInfo">No data</div>
+                                    <button id="showDensityHeatmap">Show Heatmap</button>
+                                </div>
+                                
+                                <div class="analysis-card">
+                                    <h4>Geometric Analysis</h4>
+                                    <div id="surfaceArea">Surface Area: N/A</div>
+                                    <div id="volume">Volume: N/A</div>
+                                    <div id="centerOfMass">Center of Mass: N/A</div>
+                                    <div id="boundingBox">Bounding Box: N/A</div>
+                                </div>
+                                
+                                <div class="analysis-card">
+                                    <h4>Statistical Analysis</h4>
+                                    <div id="distanceStats">Distance Stats: N/A</div>
+                                    <div id="stdDeviation">Std Deviation: N/A</div>
+                                    <button id="showHistogram">Show Histogram</button>
+                                </div>
+                                
+                                <div class="analysis-card">
+                                    <h4>Clustering</h4>
+                                    <div id="clusterInfo">Clusters: N/A</div>
+                                    <button id="analyzeClusters">Analyze Clusters</button>
+                                </div>
+                                
+                                <div class="analysis-card">
+                                    <h4>Mesh Analysis</h4>
+                                    <div id="holeInfo">Holes: N/A</div>
+                                    <button id="detectHoles">Detect Holes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Loading 3D model...</p>
+        </div>
+        
+        <!-- Analysis Results Modal -->
+        <div id="analysisModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Analysis Results</h3>
+                    <button id="closeModal" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="modalContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
